@@ -49,11 +49,11 @@ import java.util.Set;
 import dev.mccue.jsr305.CheckForNull;
 
 /**
- * A {@link Type} with generics.
+ * A {@code Type} with generics.
  *
- * <p>Operations that are otherwise only available in {@link Class} are implemented to support
- * {@code Type}, for example {@link #isSubtypeOf}, {@link #isArray} and {@link #getComponentType}.
- * It also provides additional utilities such as {@link #getTypes}, {@link #resolveType}, etc.
+ * <p>Operations that are otherwise only available in {@code Class} are implemented to support
+ * {@code Type}, for example {@code #isSubtypeOf}, {@code #isArray} and {@code #getComponentType}.
+ * It also provides additional utilities such as {@code #getTypes}, {@code #resolveType}, etc.
  *
  * <p>There are three ways to get a {@code TypeToken} instance:
  *
@@ -102,10 +102,10 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
 
   private final Type runtimeType;
 
-  /** Resolver for resolving parameter and field types with {@link #runtimeType} as context. */
+  /** Resolver for resolving parameter and field types with {@code #runtimeType} as context. */
   @LazyInit @CheckForNull private transient TypeResolver invariantTypeResolver;
 
-  /** Resolver for resolving covariant types with {@link #runtimeType} as context. */
+  /** Resolver for resolving covariant types with {@code #runtimeType} as context. */
   @LazyInit @CheckForNull private transient TypeResolver covariantTypeResolver;
 
   /**
@@ -175,15 +175,15 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
   }
 
   /**
-   * Returns the raw type of {@code T}. Formally speaking, if {@code T} is returned by {@link
-   * Method#getGenericReturnType}, the raw type is what's returned by {@link
-   * Method#getReturnType} of the same method object. Specifically:
+   * Returns the raw type of {@code T}. Formally speaking, if {@code T} is returned by {@code
+   * java.lang.reflect.Method#getGenericReturnType}, the raw type is what's returned by {@code
+   * java.lang.reflect.Method#getReturnType} of the same method object. Specifically:
    *
    * <ul>
    *   <li>If {@code T} is a {@code Class} itself, {@code T} itself is returned.
-   *   <li>If {@code T} is a {@link ParameterizedType}, the raw type of the parameterized type is
+   *   <li>If {@code T} is a {@code ParameterizedType}, the raw type of the parameterized type is
    *       returned.
-   *   <li>If {@code T} is a {@link GenericArrayType}, the returned type is the corresponding array
+   *   <li>If {@code T} is a {@code GenericArrayType}, the returned type is the corresponding array
    *       class. For example: {@code List<Integer>[] => List[]}.
    *   <li>If {@code T} is a type variable or a wildcard type, the raw type of the first upper bound
    *       is returned. For example: {@code <X extends Foo> => Foo}.
@@ -292,8 +292,8 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
   }
 
   /**
-   * Returns the generic superclass of this type or {@code null} if the type represents {@link
-   * Object} or an interface. This method is similar but different from {@link
+   * Returns the generic superclass of this type or {@code null} if the type represents {@code
+   * Object} or an interface. This method is similar but different from {@code
    * Class#getGenericSuperclass}. For example, {@code new TypeToken<StringArrayList>()
    * {}.getGenericSuperclass()} will return {@code new TypeToken<ArrayList<String>>() {}}; while
    * {@code StringArrayList.class.getGenericSuperclass()} will return {@code ArrayList<E>}, where
@@ -335,7 +335,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
 
   /**
    * Returns the generic interfaces that this type directly {@code implements}. This method is
-   * similar but different from {@link Class#getGenericInterfaces()}. For example, {@code new
+   * similar but different from {@code Class#getGenericInterfaces()}. For example, {@code new
    * TypeToken<List<String>>() {}.getGenericInterfaces()} will return a list that contains {@code
    * new TypeToken<Iterable<String>>() {}}; while {@code List.class.getGenericInterfaces()} will
    * return an array that contains {@code Iterable<T>}, where the {@code T} is the type variable
@@ -585,7 +585,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
   }
 
   /**
-   * Returns the {@link Invokable} for {@code method}, which must be a member of {@code T}.
+   * Returns the {@code Invokable} for {@code method}, which must be a member of {@code T}.
    *
    * @since 14.0
    */
@@ -624,7 +624,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
   }
 
   /**
-   * Returns the {@link Invokable} for {@code constructor}, which must be a member of {@code T}.
+   * Returns the {@code Invokable} for {@code constructor}, which must be a member of {@code T}.
    *
    * @since 14.0
    */
@@ -663,7 +663,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
   }
 
   /**
-   * The set of interfaces and classes that {@code T} is or is a subtype of. {@link Object} is not
+   * The set of interfaces and classes that {@code T} is or is a subtype of. {@code Object} is not
    * included in the set if this type is an interface.
    *
    * @since 13.0
@@ -823,7 +823,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
   }
 
   /**
-   * Returns true if {@code o} is another {@code TypeToken} that represents the same {@link Type}.
+   * Returns true if {@code o} is another {@code TypeToken} that represents the same {@code Type}.
    */
   @Override
   public boolean equals(@CheckForNull Object o) {
@@ -853,7 +853,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
 
   /**
    * Ensures that this type token doesn't contain type variables, which can cause unchecked type
-   * errors for callers like {@link TypeToInstanceMap}.
+   * errors for callers like {@code TypeToInstanceMap}.
    */
   @CanIgnoreReturnValue
   final TypeToken<T> rejectTypeVariables() {
@@ -1137,7 +1137,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
   }
 
   /**
-   * Returns the owner type of a {@link ParameterizedType} or enclosing class of a {@link Class}, or
+   * Returns the owner type of a {@code ParameterizedType} or enclosing class of a {@code Class}, or
    * null otherwise.
    */
   @CheckForNull
@@ -1158,7 +1158,6 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
    * <p>If {@code cls} isn't parameterized and isn't a generic array, the type token of the class is
    * returned.
    */
-  @VisibleForTesting
   static <T> TypeToken<? extends T> toGenericType(Class<T> cls) {
     if (cls.isArray()) {
       Type arrayOfGenericType =
@@ -1296,7 +1295,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
   }
 
   /**
-   * Creates an array class if {@code componentType} is a class, or else, a {@link
+   * Creates an array class if {@code componentType} is a class, or else, a {@code
    * GenericArrayType}. This is what Java7 does for generic array type parameters.
    */
   private static Type newArrayClassOrGenericArrayType(Type componentType) {

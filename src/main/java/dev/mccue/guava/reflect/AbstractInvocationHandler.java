@@ -22,8 +22,8 @@ import dev.mccue.jsr305.CheckForNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
- * Abstract implementation of {@link InvocationHandler} that handles {@link Object#equals}, {@link
- * Object#hashCode} and {@link Object#toString}. For example:
+ * Abstract implementation of {@code InvocationHandler} that handles {@code Object#equals}, {@code
+ * Object#hashCode} and {@code Object#toString}. For example:
  *
  * <pre>
  * class Unsupported extends AbstractInvocationHandler {
@@ -47,15 +47,15 @@ public abstract class AbstractInvocationHandler implements InvocationHandler {
    * {@inheritDoc}
    *
    * <ul>
-   *   <li>{@code proxy.hashCode()} delegates to {@link AbstractInvocationHandler#hashCode}
-   *   <li>{@code proxy.toString()} delegates to {@link AbstractInvocationHandler#toString}
+   *   <li>{@code proxy.hashCode()} delegates to {@code AbstractInvocationHandler#hashCode}
+   *   <li>{@code proxy.toString()} delegates to {@code AbstractInvocationHandler#toString}
    *   <li>{@code proxy.equals(argument)} returns true if:
    *       <ul>
    *         <li>{@code proxy} and {@code argument} are of the same type
-   *         <li>and {@link AbstractInvocationHandler#equals} returns true for the {@link
+   *         <li>and {@code AbstractInvocationHandler#equals} returns true for the {@code
    *             InvocationHandler} of {@code argument}
    *       </ul>
-   *   <li>other method calls are dispatched to {@link #handleInvocation}.
+   *   <li>other method calls are dispatched to {@code #handleInvocation}.
    * </ul>
    */
   @Override
@@ -88,11 +88,11 @@ public abstract class AbstractInvocationHandler implements InvocationHandler {
   }
 
   /**
-   * {@link #invoke} delegates to this method upon any method invocation on the proxy instance,
-   * except {@link Object#equals}, {@link Object#hashCode} and {@link Object#toString}. The result
+   * {@code #invoke} delegates to this method upon any method invocation on the proxy instance,
+   * except {@code Object#equals}, {@code Object#hashCode} and {@code Object#toString}. The result
    * will be returned as the proxied method's return value.
    *
-   * <p>Unlike {@link #invoke}, {@code args} will never be null. When the method has no parameter,
+   * <p>Unlike {@code #invoke}, {@code args} will never be null. When the method has no parameter,
    * an empty array is passed in.
    */
   @CheckForNull
@@ -100,12 +100,12 @@ public abstract class AbstractInvocationHandler implements InvocationHandler {
       throws Throwable;
 
   /**
-   * By default delegates to {@link Object#equals} so instances are only equal if they are
+   * By default delegates to {@code Object#equals} so instances are only equal if they are
    * identical. {@code proxy.equals(argument)} returns true if:
    *
    * <ul>
    *   <li>{@code proxy} and {@code argument} are of the same type
-   *   <li>and this method returns true for the {@link InvocationHandler} of {@code argument}
+   *   <li>and this method returns true for the {@code InvocationHandler} of {@code argument}
    * </ul>
    *
    * <p>Subclasses can override this method to provide custom equality.
@@ -116,7 +116,7 @@ public abstract class AbstractInvocationHandler implements InvocationHandler {
   }
 
   /**
-   * By default delegates to {@link Object#hashCode}. The dynamic proxies' {@code hashCode()} will
+   * By default delegates to {@code Object#hashCode}. The dynamic proxies' {@code hashCode()} will
    * delegate to this method. Subclasses can override this method to provide custom equality.
    */
   @Override
@@ -125,7 +125,7 @@ public abstract class AbstractInvocationHandler implements InvocationHandler {
   }
 
   /**
-   * By default delegates to {@link Object#toString}. The dynamic proxies' {@code toString()} will
+   * By default delegates to {@code Object#toString}. The dynamic proxies' {@code toString()} will
    * delegate to this method. Subclasses can override this method to provide custom string
    * representation for the proxies.
    */

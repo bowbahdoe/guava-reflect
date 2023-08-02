@@ -31,7 +31,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
- * A mutable type-to-instance map. See also {@link ImmutableTypeToInstanceMap}.
+ * A mutable type-to-instance map. See also {@code ImmutableTypeToInstanceMap}.
  *
  * @author Ben Yu
  * @since 13.0
@@ -69,7 +69,7 @@ public final class MutableTypeToInstanceMap<B extends @Nullable Object>
   }
 
   /**
-   * Not supported. Use {@link #putInstance} instead.
+   * Not supported. Use {@code #putInstance} instead.
    *
    * @deprecated unsupported operation
    * @throws UnsupportedOperationException always
@@ -84,7 +84,7 @@ public final class MutableTypeToInstanceMap<B extends @Nullable Object>
   }
 
   /**
-   * Not supported. Use {@link #putInstance} instead.
+   * Not supported. Use {@code #putInstance} instead.
    *
    * @deprecated unsupported operation
    * @throws UnsupportedOperationException always
@@ -125,7 +125,7 @@ public final class MutableTypeToInstanceMap<B extends @Nullable Object>
 
     static <K, V extends @Nullable Object> Set<Entry<K, V>> transformEntries(
         Set<Entry<K, V>> entries) {
-      return new ForwardingSet<Entry<K, V>>() {
+      return new ForwardingSet<Map.Entry<K, V>>() {
         @Override
         protected Set<Entry<K, V>> delegate() {
           return entries;
@@ -162,7 +162,7 @@ public final class MutableTypeToInstanceMap<B extends @Nullable Object>
       return Iterators.transform(entries, UnmodifiableEntry::new);
     }
 
-    private UnmodifiableEntry(Entry<K, V> delegate) {
+    private UnmodifiableEntry(java.util.Map.Entry<K, V> delegate) {
       this.delegate = checkNotNull(delegate);
     }
 

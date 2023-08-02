@@ -22,13 +22,13 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
- * A map, each entry of which maps a {@link TypeToken} to an instance of that type. In addition to
- * implementing {@code Map}, the additional type-safe operations {@link #putInstance} and {@link
+ * A map, each entry of which maps a {@code TypeToken} to an instance of that type. In addition to
+ * implementing {@code Map}, the additional type-safe operations {@code #putInstance} and {@code
  * #getInstance} are available.
  *
- * <p>Generally, implementations don't support {@link #put} and {@link #putAll} because there is no
- * way to check an object at runtime to be an instance of a {@link TypeToken}. Instead, caller
- * should use the type safe {@link #putInstance}.
+ * <p>Generally, implementations don't support {@code #put} and {@code #putAll} because there is no
+ * way to check an object at runtime to be an instance of a {@code TypeToken}. Instead, caller
+ * should use the type safe {@code #putInstance}.
  *
  * <p>Also, if caller suppresses unchecked warnings and passes in an {@code Iterable<String>} for
  * type {@code Iterable<Integer>}, the map won't be able to detect and throw type error.
@@ -36,7 +36,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * <p>Like any other {@code Map<Class, Object>}, this map may contain entries for primitive types,
  * and a primitive type and its corresponding wrapper type may map to different values.
  *
- * @param <B> the common supertype that all entries must share; often this is simply {@link Object}
+ * @param <B> the common supertype that all entries must share; often this is simply {@code Object}
  * @author Ben Yu
  * @since 13.0
  */

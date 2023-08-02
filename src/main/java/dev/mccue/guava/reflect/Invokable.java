@@ -34,11 +34,11 @@ import dev.mccue.jsr305.CheckForNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
- * Wrapper around either a {@link Method} or a {@link Constructor}. Convenience API is provided to
- * make common reflective operation easier to deal with, such as {@link #isPublic}, {@link
+ * Wrapper around either a {@code Method} or a {@code Constructor}. Convenience API is provided to
+ * make common reflective operation easier to deal with, such as {@code #isPublic}, {@code
  * #getParameters} etc.
  *
- * <p>In addition to convenience methods, {@link TypeToken#method} and {@link TypeToken#constructor}
+ * <p>In addition to convenience methods, {@code TypeToken#method} and {@code TypeToken#constructor}
  * will resolve the type parameters of the method or constructor in the context of the owner type,
  * which may be a subtype of the declaring class. For example:
  *
@@ -49,8 +49,8 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * assertEquals(new TypeToken<List<String>>() {}, invokable.getOwnerType());
  * }</pre>
  *
- * <p><b>Note:</b> earlier versions of this class inherited from {@link
- * AccessibleObject AccessibleObject} and {@link
+ * <p><b>Note:</b> earlier versions of this class inherited from {@code
+ * java.lang.reflect.AccessibleObject AccessibleObject} and {@code
  * java.lang.reflect.GenericDeclaration GenericDeclaration}. Since version 31.0 that is no longer
  * the case. However, most methods from those types are present with the same signature in this
  * class.
@@ -59,7 +59,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @param <R> the return type of (or supertype thereof) the method or the declaring type of the
  *     constructor.
  * @author Ben Yu
- * @since 14.0 (no longer implements {@link AccessibleObject} or {@code GenericDeclaration} since
+ * @since 14.0 (no longer implements {@code AccessibleObject} or {@code GenericDeclaration} since
  *     31.0)
  */
 @ElementTypesAreNonnullByDefault
@@ -73,12 +73,12 @@ public abstract class Invokable<T, R> implements AnnotatedElement, Member {
     this.member = member;
   }
 
-  /** Returns {@link Invokable} of {@code method}. */
+  /** Returns {@code Invokable} of {@code method}. */
   public static Invokable<?, Object> from(Method method) {
     return new MethodInvokable<>(method);
   }
 
-  /** Returns {@link Invokable} of {@code constructor}. */
+  /** Returns {@code Invokable} of {@code constructor}. */
   public static <T> Invokable<T, T> from(Constructor<T> constructor) {
     return new ConstructorInvokable<T>(constructor);
   }
@@ -108,15 +108,15 @@ public abstract class Invokable<T, R> implements AnnotatedElement, Member {
   // That would give us this method declaration. But for some reason, implementing
   // GenericDeclaration leads to weird errors in Android tests:
   // IncompatibleClassChangeError: interface not implemented
-  /** See {@link java.lang.reflect.GenericDeclaration#getTypeParameters()}. */
+  /** See {@code java.lang.reflect.GenericDeclaration#getTypeParameters()}. */
   public abstract TypeVariable<?>[] getTypeParameters();
 
-  /** See {@link AccessibleObject#setAccessible(boolean)}. */
+  /** See {@code java.lang.reflect.AccessibleObject#setAccessible(boolean)}. */
   public final void setAccessible(boolean flag) {
     accessibleObject.setAccessible(flag);
   }
 
-  /** See {@link AccessibleObject#trySetAccessible()}. */
+  /** See {@code java.lang.reflect.AccessibleObject#trySetAccessible()}. */
   public final boolean trySetAccessible() {
     // We can't call accessibleObject.trySetAccessible since that was added in Java 9 and this code
     // should work on Java 8. So we emulate it this way.
@@ -128,7 +128,7 @@ public abstract class Invokable<T, R> implements AnnotatedElement, Member {
     }
   }
 
-  /** See {@link AccessibleObject#isAccessible()}. */
+  /** See {@code java.lang.reflect.AccessibleObject#isAccessible()}. */
   public final boolean isAccessible() {
     return accessibleObject.isAccessible();
   }
@@ -178,7 +178,7 @@ public abstract class Invokable<T, R> implements AnnotatedElement, Member {
    *
    * <p>Note that a method may still be effectively "final", or non-overridable when it has no
    * {@code final} keyword. For example, it could be private, or it could be declared by a final
-   * class. To tell whether a method is overridable, use {@link Invokable#isOverridable}.
+   * class. To tell whether a method is overridable, use {@code Invokable#isOverridable}.
    */
   public final boolean isFinal() {
     return Modifier.isFinal(getModifiers());
@@ -268,7 +268,7 @@ public abstract class Invokable<T, R> implements AnnotatedElement, Member {
 
   /**
    * Returns all declared parameters of this {@code Invokable}. Note that if this is a constructor
-   * of a non-static inner class, unlike {@link Constructor#getParameterTypes}, the hidden {@code
+   * of a non-static inner class, unlike {@code Constructor#getParameterTypes}, the hidden {@code
    * this} parameter of the enclosing class is excluded from the returned parameters.
    */
   @IgnoreJRERequirement
@@ -353,7 +353,7 @@ public abstract class Invokable<T, R> implements AnnotatedElement, Member {
   abstract Type getGenericReturnType();
 
   /**
-   * Returns the {@link AnnotatedType} for the return type.
+   * Returns the {@code AnnotatedType} for the return type.
    *
    * <p>This method will fail if run under an Android VM.
    *
@@ -452,7 +452,7 @@ public abstract class Invokable<T, R> implements AnnotatedElement, Member {
     }
 
     /**
-     * If the class is parameterized, such as {@link java.util.ArrayList ArrayList}, this returns
+     * If the class is parameterized, such as {@code java.util.ArrayList ArrayList}, this returns
      * {@code ArrayList<E>}.
      */
     @Override

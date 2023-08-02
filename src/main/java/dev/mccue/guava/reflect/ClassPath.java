@@ -51,7 +51,7 @@ import java.lang.System.Logger;
 import dev.mccue.jsr305.CheckForNull;
 
 /**
- * Scans the source of a {@link ClassLoader} and finds all loadable classes and resources.
+ * Scans the source of a {@code ClassLoader} and finds all loadable classes and resources.
  *
  * <h2>Prefer <a href="https://github.com/classgraph/classgraph/wiki">ClassGraph</a> over {@code
  * ClassPath}</h2>
@@ -61,8 +61,8 @@ import dev.mccue.jsr305.CheckForNull;
  * including addressing many of its limitations. Limitations of {@code ClassPath} include:
  *
  * <ul>
- *   <li>It looks only for files and JARs in URLs available from {@link URLClassLoader} instances or
- *       the {@linkplain ClassLoader#getSystemClassLoader() system class loader}. This means it does
+ *   <li>It looks only for files and JARs in URLs available from {@code URLClassLoader} instances or
+ *       the {@code ClassLoader#getSystemClassLoader() system class loader}. This means it does
  *       not look for classes in the <i>module path</i>.
  *   <li>It understands only {@code file:} URLs. This means that it does not understand <a
  *       href="https://openjdk.java.net/jeps/220">{@code jrt:/} URLs</a>, among <a
@@ -112,9 +112,9 @@ public final class ClassPath {
    * <p><b>Warning:</b> {@code ClassPath} can find classes and resources only from:
    *
    * <ul>
-   *   <li>{@link URLClassLoader} instances' {@code file:} URLs
-   *   <li>the {@linkplain ClassLoader#getSystemClassLoader() system class loader}. To search the
-   *       system class loader even when it is not a {@link URLClassLoader} (as in Java 9), {@code
+   *   <li>{@code URLClassLoader} instances' {@code file:} URLs
+   *   <li>the {@code ClassLoader#getSystemClassLoader() system class loader}. To search the
+   *       system class loader even when it is not a {@code URLClassLoader} (as in Java 9), {@code
    *       ClassPath} searches the files from the {@code java.class.path} system property.
    * </ul>
    *
@@ -158,7 +158,7 @@ public final class ClassPath {
 
   /**
    * Returns all top level classes loadable from the current class path. Note that "top-level-ness"
-   * is determined heuristically by class name (see {@link ClassInfo#isTopLevel}).
+   * is determined heuristically by class name (see {@code ClassInfo#isTopLevel}).
    */
   public ImmutableSet<ClassInfo> getTopLevelClasses() {
     return FluentIterable.from(resources)
@@ -224,7 +224,7 @@ public final class ClassPath {
     /**
      * Returns the url identifying the resource.
      *
-     * <p>See {@link ClassLoader#getResource}
+     * <p>See {@code ClassLoader#getResource}
      *
      * @throws NoSuchElementException if the resource cannot be loaded through the class loader,
      *     despite physically existing in the class path.
@@ -238,7 +238,7 @@ public final class ClassPath {
     }
 
     /**
-     * Returns a {@link ByteSource} view of the resource from which its bytes can be read.
+     * Returns a {@code ByteSource} view of the resource from which its bytes can be read.
      *
      * @throws NoSuchElementException if the resource cannot be loaded through the class loader,
      *     despite physically existing in the class path.
@@ -249,7 +249,7 @@ public final class ClassPath {
     }
 
     /**
-     * Returns a {@link CharSource} view of the resource from which its bytes can be read as
+     * Returns a {@code CharSource} view of the resource from which its bytes can be read as
      * characters decoded with the given {@code charset}.
      *
      * @throws NoSuchElementException if the resource cannot be loaded through the class loader,
@@ -292,7 +292,7 @@ public final class ClassPath {
   }
 
   /**
-   * Represents a class that can be loaded through {@link #load}.
+   * Represents a class that can be loaded through {@code #load}.
    *
    * @since 14.0
    */
@@ -307,7 +307,7 @@ public final class ClassPath {
     /**
      * Returns the package name of the class, without attempting to load the class.
      *
-     * <p>Behaves similarly to {@code class.getPackage().}{@link Package#getName() getName()} but
+     * <p>Behaves similarly to {@code class.getPackage().}{@code Package#getName() getName()} but
      * does not require the class (or package) to be loaded.
      *
      * <p>But note that this method may behave differently for a class in the default package: For
@@ -322,7 +322,7 @@ public final class ClassPath {
     /**
      * Returns the simple name of the underlying class as given in the source code.
      *
-     * <p>Behaves similarly to {@link Class#getSimpleName()} but does not require the class to be
+     * <p>Behaves similarly to {@code Class#getSimpleName()} but does not require the class to be
      * loaded.
      *
      * <p>But note that this class uses heuristics to identify the simple name. See a related
@@ -348,7 +348,7 @@ public final class ClassPath {
     /**
      * Returns the fully qualified name of the class.
      *
-     * <p>Behaves identically to {@link Class#getName()} but does not require the class to be
+     * <p>Behaves identically to {@code Class#getName()} but does not require the class to be
      * loaded.
      */
     public String getName() {
@@ -358,8 +358,8 @@ public final class ClassPath {
     /**
      * Returns true if the class name "looks to be" top level (not nested), that is, it includes no
      * '$' in the name. This method may return false for a top-level class that's intentionally
-     * named with the '$' character. If this is a concern, you could use {@link #load} and then
-     * check on the loaded {@link Class} object instead.
+     * named with the '$' character. If this is a concern, you could use {@code #load} and then
+     * check on the loaded {@code Class} object instead.
      *
      * @since 30.1
      */
@@ -371,7 +371,7 @@ public final class ClassPath {
      * Loads (but doesn't link or initialize) the class.
      *
      * @throws LinkageError when there were errors in loading classes that this class depends on.
-     *     For example, {@link NoClassDefFoundError}.
+     *     For example, {@code NoClassDefFoundError}.
      */
     public Class<?> load() {
       try {
@@ -390,7 +390,7 @@ public final class ClassPath {
 
   /**
    * Returns all locations that {@code classloader} and parent loaders load classes and resources
-   * from. Callers can {@linkplain LocationInfo#scanResources scan} individual locations selectively
+   * from. Callers can {@code LocationInfo#scanResources scan} individual locations selectively
    * or even in parallel.
    */
   static ImmutableSet<LocationInfo> locationsFrom(ClassLoader classloader) {
@@ -452,7 +452,7 @@ public final class ClassPath {
           return;
         }
       } catch (SecurityException e) {
-        logger.log(WARNING, "Cannot access " + file + ": " + e);
+        logger.log(java.lang.System.Logger.Level.WARNING, "Cannot access " + file + ": " + e);
         // TODO(emcmanus): consider whether to log other failure cases too.
         return;
       }
@@ -527,7 +527,7 @@ public final class ClassPath {
         throws IOException {
       File[] files = directory.listFiles();
       if (files == null) {
-        logger.log(WARNING, "Cannot read directory " + directory);
+        logger.log(java.lang.System.Logger.Level.WARNING, "Cannot read directory " + directory);
         // IO error, just skip the directory
         return;
       }
@@ -575,7 +575,6 @@ public final class ClassPath {
    * File Specification</a>. If {@code manifest} is null, it means the jar file has no manifest, and
    * an empty set will be returned.
    */
-  @VisibleForTesting
   static ImmutableSet<File> getClassPathFromManifest(
       File jarFile, @CheckForNull Manifest manifest) {
     if (manifest == null) {
@@ -591,7 +590,7 @@ public final class ClassPath {
           url = getClassPathEntry(jarFile, path);
         } catch (MalformedURLException e) {
           // Ignore bad entry
-          logger.log(WARNING, "Invalid Class-Path entry: " + path);
+          logger.log(java.lang.System.Logger.Level.WARNING, "Invalid Class-Path entry: " + path);
           continue;
         }
         if (url.getProtocol().equals("file")) {
@@ -602,7 +601,6 @@ public final class ClassPath {
     return builder.build();
   }
 
-  @VisibleForTesting
   static ImmutableMap<File, ClassLoader> getClassPathEntries(ClassLoader classloader) {
     LinkedHashMap<File, ClassLoader> entries = Maps.newLinkedHashMap();
     // Search parent first, since it's the order ClassLoader#loadClass() uses.
@@ -632,10 +630,10 @@ public final class ClassPath {
   }
 
   /**
-   * Returns the URLs in the class path specified by the {@code java.class.path} {@linkplain
+   * Returns the URLs in the class path specified by the {@code java.class.path} {@code
    * System#getProperty system property}.
    */
-  @VisibleForTesting // TODO(b/65488446): Make this a public API.
+  // TODO(b/65488446): Make this a public API.
   static ImmutableList<URL> parseJavaClassPath() {
     ImmutableList.Builder<URL> urls = ImmutableList.builder();
     for (String entry : Splitter.on(PATH_SEPARATOR.value()).split(JAVA_CLASS_PATH.value())) {
@@ -658,19 +656,16 @@ public final class ClassPath {
    * File Specification</a>. Even though the specification only talks about relative urls, absolute
    * urls are actually supported too (for example, in Maven surefire plugin).
    */
-  @VisibleForTesting
   static URL getClassPathEntry(File jarFile, String path) throws MalformedURLException {
     return new URL(jarFile.toURI().toURL(), path);
   }
 
-  @VisibleForTesting
   static String getClassName(String filename) {
     int classNameEnd = filename.length() - CLASS_FILE_NAME_EXTENSION.length();
     return filename.substring(0, classNameEnd).replace('/', '.');
   }
 
   // TODO(benyu): Try java.nio.file.Paths#get() when Guava drops JDK 6 support.
-  @VisibleForTesting
   static File toFile(URL url) {
     checkArgument(url.getProtocol().equals("file"));
     try {

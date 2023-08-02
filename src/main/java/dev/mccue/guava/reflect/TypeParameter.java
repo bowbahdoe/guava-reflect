@@ -21,7 +21,7 @@ import java.lang.reflect.TypeVariable;
 import dev.mccue.jsr305.CheckForNull;
 
 /**
- * Captures a free type variable that can be used in {@link TypeToken#where}. For example:
+ * Captures a free type variable that can be used in {@code TypeToken#where}. For example:
  *
  * <pre>{@code
  * static <T> TypeToken<List<T>> listOf(Class<T> elementType) {

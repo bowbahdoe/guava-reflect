@@ -40,7 +40,7 @@ public final class Parameter implements AnnotatedElement {
   private final ImmutableList<Annotation> annotations;
 
   /**
-   * An {@link AnnotatedType} instance, or {@code null} under Android VMs (possible only when using
+   * An {@code AnnotatedType} instance, or {@code null} under Android VMs (possible only when using
    * the Android flavor of Guava). The field is declared with a type of {@code Object} to avoid
    * compatibility problems on Android VMs. The corresponding accessor method, however, can have the
    * more specific return type as long as users are careful to guard calls to it with version checks
@@ -66,7 +66,7 @@ public final class Parameter implements AnnotatedElement {
     return type;
   }
 
-  /** Returns the {@link Invokable} that declares this parameter. */
+  /** Returns the {@code Invokable} that declares this parameter. */
   public Invokable<?, ?> getDeclaringInvokable() {
     return declaration;
   }
@@ -124,7 +124,7 @@ public final class Parameter implements AnnotatedElement {
   }
 
   /**
-   * Returns the {@link AnnotatedType} of the parameter.
+   * Returns the {@code AnnotatedType} of the parameter.
    *
    * <p>This method will fail if run under an Android VM.
    *

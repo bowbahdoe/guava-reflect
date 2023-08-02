@@ -30,8 +30,8 @@ public final class Reflection {
 
   /**
    * Returns the package name of {@code clazz} according to the Java Language Specification (section
-   * 6.7). Unlike {@link Class#getPackage}, this method only parses the class name, without
-   * attempting to define the {@link Package} and hence load files.
+   * 6.7). Unlike {@code Class#getPackage}, this method only parses the class name, without
+   * attempting to define the {@code Package} and hence load files.
    */
   public static String getPackageName(Class<?> clazz) {
     return getPackageName(clazz.getName());
@@ -39,8 +39,8 @@ public final class Reflection {
 
   /**
    * Returns the package name of {@code classFullName} according to the Java Language Specification
-   * (section 6.7). Unlike {@link Class#getPackage}, this method only parses the class name, without
-   * attempting to define the {@link Package} and hence load files.
+   * (section 6.7). Unlike {@code Class#getPackage}, this method only parses the class name, without
+   * attempting to define the {@code Package} and hence load files.
    */
   public static String getPackageName(String classFullName) {
     int lastDot = classFullName.lastIndexOf('.');
@@ -71,7 +71,7 @@ public final class Reflection {
   /**
    * Returns a proxy instance that implements {@code interfaceType} by dispatching method
    * invocations to {@code handler}. The class loader of {@code interfaceType} will be used to
-   * define the proxy class. To implement multiple interfaces or specify a class loader, use {@link
+   * define the proxy class. To implement multiple interfaces or specify a class loader, use {@code
    * Proxy#newProxyInstance}.
    *
    * @throws IllegalArgumentException if {@code interfaceType} does not specify the type of a Java

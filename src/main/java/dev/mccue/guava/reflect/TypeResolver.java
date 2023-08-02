@@ -38,12 +38,12 @@ import dev.mccue.jsr305.CheckForNull;
 
 /**
  * An object of this class encapsulates type mappings from type variables. Mappings are established
- * with {@link #where} and types are resolved using {@link #resolveType}.
+ * with {@code #where} and types are resolved using {@code #resolveType}.
  *
  * <p>Note that usually type mappings are already implied by the static type hierarchy (for example,
  * the {@code E} type variable declared by class {@code List} naturally maps to {@code String} in
  * the context of {@code class MyStringList implements List<String>}). In such case, prefer to use
- * {@link TypeToken#resolveType} since it's simpler and more type safe. This class should only be
+ * {@code TypeToken#resolveType} since it's simpler and more type safe. This class should only be
  * used when the type mapping isn't implied by the static type hierarchy, but provided through other
  * means such as an annotation or external configuration file.
  *
@@ -95,7 +95,7 @@ public final class TypeResolver {
    * {@code actual}.
    *
    * <p>For example, if {@code formal} is a {@code TypeVariable T}, and {@code actual} is {@code
-   * String.class}, then {@code new TypeResolver().where(formal, actual)} will {@linkplain
+   * String.class}, then {@code new TypeResolver().where(formal, actual)} will {@code
    * #resolveType resolve} {@code ParameterizedType List<T>} to {@code List<String>}, and resolve
    * {@code Map<T, Something>} to {@code Map<String, Something>} etc. Similarly, {@code formal} and
    * {@code actual} can be {@code Map<K, V>} and {@code Map<String, Integer>} respectively, or they
@@ -272,7 +272,7 @@ public final class TypeResolver {
     }
   }
 
-  /** A TypeTable maintains mapping from {@link TypeVariable} to types. */
+  /** A TypeTable maintains mapping from {@code TypeVariable} to types. */
   private static class TypeTable {
     private final ImmutableMap<TypeVariableKey, Type> map;
 
@@ -318,7 +318,7 @@ public final class TypeResolver {
      * doesn't try to resolve any type variable on generic declarations that are already being
      * resolved.
      *
-     * <p>Should only be called and overridden by {@link #resolve(TypeVariable)}.
+     * <p>Should only be called and overridden by {@code #resolve(TypeVariable)}.
      */
     Type resolveInternal(TypeVariable<?> var, TypeTable forDependants) {
       Type type = map.get(new TypeVariableKey(var));
@@ -537,7 +537,7 @@ public final class TypeResolver {
 
   /**
    * Wraps around {@code TypeVariable<?>} to ensure that any two type variables are equal as long as
-   * they are declared by the same {@link java.lang.reflect.GenericDeclaration} and have the same
+   * they are declared by the same {@code java.lang.reflect.GenericDeclaration} and have the same
    * name, even if their bounds differ.
    *
    * <p>While resolving a type variable from a {@code var -> type} map, we don't care whether the

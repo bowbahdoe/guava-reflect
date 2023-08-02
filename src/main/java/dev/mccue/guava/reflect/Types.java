@@ -38,6 +38,7 @@ import java.lang.reflect.Proxy;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.lang.reflect.WildcardType;
+import java.security.AccessControlException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map.Entry;
@@ -46,7 +47,7 @@ import dev.mccue.jsr305.CheckForNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
- * Utilities for working with {@link Type}.
+ * Utilities for working with {@code Type}.
  *
  * @author Ben Yu
  */
@@ -94,7 +95,7 @@ final class Types {
         ClassOwnership.JVM_BEHAVIOR.getOwnerType(rawType), rawType, arguments);
   }
 
-  /** Decides what owner type to use for constructing {@link ParameterizedType} from a raw class. */
+  /** Decides what owner type to use for constructing {@code ParameterizedType} from a raw class. */
   private enum ClassOwnership {
     OWNED_BY_ENCLOSING_CLASS {
       @Override
@@ -136,7 +137,7 @@ final class Types {
   }
 
   /**
-   * Returns a new {@link TypeVariable} that belongs to {@code declaration} with {@code name} and
+   * Returns a new {@code TypeVariable} that belongs to {@code declaration} with {@code name} and
    * {@code bounds}.
    */
   static <D extends GenericDeclaration> TypeVariable<D> newArtificialTypeVariable(
@@ -145,14 +146,12 @@ final class Types {
         declaration, name, (bounds.length == 0) ? new Type[] {Object.class} : bounds);
   }
 
-  /** Returns a new {@link WildcardType} with {@code upperBound}. */
-  @VisibleForTesting
+  /** Returns a new {@code WildcardType} with {@code upperBound}. */
   static WildcardType subtypeOf(Type upperBound) {
     return new WildcardTypeImpl(new Type[0], new Type[] {upperBound});
   }
 
-  /** Returns a new {@link WildcardType} with {@code lowerBound}. */
-  @VisibleForTesting
+  /** Returns a new {@code WildcardType} with {@code lowerBound}. */
   static WildcardType supertypeOf(Type lowerBound) {
     return new WildcardTypeImpl(new Type[] {lowerBound}, new Type[] {Object.class});
   }
@@ -331,21 +330,21 @@ final class Types {
   /**
    * Invocation handler to work around a compatibility problem between Java 7 and Java 8.
    *
-   * <p>Java 8 introduced a new method {@code getAnnotatedBounds()} in the {@link TypeVariable}
+   * <p>Java 8 introduced a new method {@code getAnnotatedBounds()} in the {@code TypeVariable}
    * interface, whose return type {@code AnnotatedType[]} is also new in Java 8. That means that we
    * cannot implement that interface in source code in a way that will compile on both Java 7 and
    * Java 8. If we include the {@code getAnnotatedBounds()} method then its return type means it
    * won't compile on Java 7, while if we don't include the method then the compiler will complain
    * that an abstract method is unimplemented. So instead we use a dynamic proxy to get an
    * implementation. If the method being called on the {@code TypeVariable} instance has the same
-   * name as one of the public methods of {@link TypeVariableImpl}, the proxy calls the same method
-   * on its instance of {@code TypeVariableImpl}. Otherwise it throws {@link
+   * name as one of the public methods of {@code TypeVariableImpl}, the proxy calls the same method
+   * on its instance of {@code TypeVariableImpl}. Otherwise it throws {@code
    * UnsupportedOperationException}; this should only apply to {@code getAnnotatedBounds()}. This
-   * does mean that users on Java 8 who obtain an instance of {@code TypeVariable} from {@link
+   * does mean that users on Java 8 who obtain an instance of {@code TypeVariable} from {@code
    * TypeResolver#resolveType} will not be able to call {@code getAnnotatedBounds()} on it, but that
    * should hopefully be rare.
    *
-   * <p>TODO(b/147144588): We are currently also missing the methods inherited from {@link
+   * <p>TODO(b/147144588): We are currently also missing the methods inherited from {@code
    * AnnotatedElement}, which {@code TypeVariable} began to extend only in Java 8. Those methods
    * refer only to types present in Java 7, so we could implement them in {@code TypeVariableImpl}
    * today. (We could probably then make {@code TypeVariableImpl} implement {@code AnnotatedElement}
@@ -668,7 +667,7 @@ final class Types {
 
   /**
    * Per <a href="https://code.google.com/p/guava-libraries/issues/detail?id=1635">issue 1635</a>,
-   * In JDK 1.7.0_51-b13, {@link TypeVariableImpl#equals(Object)} is changed to no longer be equal
+   * In JDK 1.7.0_51-b13, {@code TypeVariableImpl#equals(Object)} is changed to no longer be equal
    * to custom TypeVariable implementations. As a result, we need to make sure our TypeVariable
    * implementation respects symmetry. Moreover, we don't want to reconstruct a native type variable
    * {@code <A>} using our implementation unless some of its bounds have changed in resolution. This

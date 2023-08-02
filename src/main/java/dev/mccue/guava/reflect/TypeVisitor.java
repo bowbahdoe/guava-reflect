@@ -24,9 +24,9 @@ import java.util.Set;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
- * Based on what a {@link Type} is, dispatch it to the corresponding {@code visit*} method. By
+ * Based on what a {@code Type} is, dispatch it to the corresponding {@code visit*} method. By
  * default, no recursion is done for type arguments or type bounds. But subclasses can opt to do
- * recursion by calling {@link #visit} for any {@code Type} while visitation is in progress. For
+ * recursion by calling {@code #visit} for any {@code Type} while visitation is in progress. For
  * example, this can be used to reject wildcards or type variables contained in a type as in:
  *
  * <pre>{@code
@@ -48,7 +48,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * }</pre>
  *
  * <p>One {@code Type} is visited at most once. The second time the same type is visited, it's
- * ignored by {@link #visit}. This avoids infinite recursion caused by recursive type bounds.
+ * ignored by {@code #visit}. This avoids infinite recursion caused by recursive type bounds.
  *
  * <p>This class is <em>not</em> thread safe.
  *
