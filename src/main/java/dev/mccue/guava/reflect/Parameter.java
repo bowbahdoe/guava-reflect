@@ -93,7 +93,9 @@ public final class Parameter implements AnnotatedElement {
     return getDeclaredAnnotations();
   }
 
-  /** @since 18.0 */
+  /**
+   * @since 18.0
+   */
   @Override
   public <A extends Annotation> A[] getAnnotationsByType(Class<A> annotationType) {
     return getDeclaredAnnotationsByType(annotationType);
@@ -105,7 +107,9 @@ public final class Parameter implements AnnotatedElement {
     return annotations.toArray(new Annotation[0]);
   }
 
-  /** @since 18.0 */
+  /**
+   * @since 18.0
+   */
   @Override
   @CheckForNull
   public <A extends Annotation> A getDeclaredAnnotation(Class<A> annotationType) {
@@ -113,7 +117,9 @@ public final class Parameter implements AnnotatedElement {
     return FluentIterable.from(annotations).filter(annotationType).first().orNull();
   }
 
-  /** @since 18.0 */
+  /**
+   * @since 18.0
+   */
   @Override
   public <A extends Annotation> A[] getDeclaredAnnotationsByType(Class<A> annotationType) {
     @Nullable
@@ -126,12 +132,9 @@ public final class Parameter implements AnnotatedElement {
   /**
    * Returns the {@code AnnotatedType} of the parameter.
    *
-   * <p>This method will fail if run under an Android VM.
-   *
-   * @since 25.1 for guava-jre (available since 32.0.0 in guava-android)
+   * @since 25.1 for guava-jre
    */
-  @SuppressWarnings({"Java7ApiChecker", "AndroidJdkLibsChecker"})
-  @IgnoreJRERequirement
+  @SuppressWarnings("Java7ApiChecker")
   public AnnotatedType getAnnotatedType() {
     return requireNonNull((AnnotatedType) annotatedType);
   }
