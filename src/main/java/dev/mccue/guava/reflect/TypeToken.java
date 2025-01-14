@@ -17,6 +17,7 @@ package dev.mccue.guava.reflect;
 import static dev.mccue.guava.base.Preconditions.checkArgument;
 import static dev.mccue.guava.base.Preconditions.checkNotNull;
 import static dev.mccue.guava.base.Preconditions.checkState;
+import static java.lang.Math.max;
 import static java.util.Objects.requireNonNull;
 
 import dev.mccue.guava.base.Joiner;
@@ -1401,11 +1402,11 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
       // Interfaces should be listed before Object.
       int aboveMe = getRawType(type).isInterface() ? 1 : 0;
       for (K interfaceType : getInterfaces(type)) {
-        aboveMe = Math.max(aboveMe, collectTypes(interfaceType, map));
+        aboveMe = max(aboveMe, collectTypes(interfaceType, map));
       }
       K superclass = getSuperclass(type);
       if (superclass != null) {
-        aboveMe = Math.max(aboveMe, collectTypes(superclass, map));
+        aboveMe = max(aboveMe, collectTypes(superclass, map));
       }
       /*
        * TODO(benyu): should we include Object for interface? Also, CharSequence[] and Object[] for
